@@ -25,7 +25,7 @@ export default function FeedbackForm({ onAdd }) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/feedback", {
+      const res = await fetch("https://backend-feedback-f8jc.onrender.com/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -40,7 +40,6 @@ export default function FeedbackForm({ onAdd }) {
       if (onAdd) onAdd({ ...form, id: data.id });
 
       setForm({ studentName: "", courseCode: "", comments: "", rating: 1 });
-
       setSuccess("Feedback submitted successfully!"); // show success
     } catch (err) {
       console.error(err);
