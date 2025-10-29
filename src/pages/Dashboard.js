@@ -4,9 +4,11 @@ import FeedbackList from "../components/FeedbackList";
 export default function Dashboard() {
   const [feedbacks, setFeedbacks] = useState([]);
 
+  // Use the GET route /feedback instead of /add
   const fetchFeedback = async () => {
     try {
-      const res = await fetch("https://backend-feedback-f8jc.onrender.com/add");
+      const res = await fetch("https://backend-feedback-f8jc.onrender.com/feedback");
+      if (!res.ok) throw new Error("Failed to fetch feedback");
       const data = await res.json();
       setFeedbacks(data);
     } catch (err) {
@@ -21,7 +23,7 @@ export default function Dashboard() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`https://backend-feedback-f8jc.onrender.com/add/${id}`, {
+      const res = await fetch(`https://backend-feedback-f8jc.onrender.com/feedback/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Delete failed");
