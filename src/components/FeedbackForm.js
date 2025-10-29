@@ -8,6 +8,7 @@ export default function FeedbackForm({ onAdd }) {
     rating: 1,
   });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(""); // <-- new state
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,17 +17,18 @@ export default function FeedbackForm({ onAdd }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate all fields
     if (!form.studentName || !form.courseCode || !form.comments) {
       setError("All fields are required");
+      setSuccess("");
       return;
     }
+
     setError("");
+    setSuccess("");
 
     try {
-      // ✅ Correct endpoint for POST
       const res = await fetch(
-        "https://backend-feedback-f8jc.onrender.com/add",
+        "https://backend-feedback-f8jc.onrender.com/add", // make sure endpoint is /add
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -42,17 +44,19 @@ export default function FeedbackForm({ onAdd }) {
       const data = await res.json();
       if (onAdd) onAdd({ ...form, id: data.id });
 
-      // Reset form after successful submission
       setForm({ studentName: "", courseCode: "", comments: "", rating: 1 });
+      setSuccess("Feedback submitted successfully!"); // <-- show success
     } catch (err) {
       console.error(err);
       setError(err.message || "Failed to submit feedback");
+      setSuccess("");
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="feedback-form">
       {error && <p className="error">{error}</p>}
+      {success && <p className="success">{success}</p>}
       <input
         name="studentName"
         value={form.studentName}
@@ -82,6 +86,7 @@ export default function FeedbackForm({ onAdd }) {
     </form>
   );
 }
+
 
 
 
