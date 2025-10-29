@@ -21,7 +21,6 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-          <span className="logo-icon">🎓</span>
           <span className="logo-text">Limkokwing Feedback</span>
         </Link>
 
@@ -31,7 +30,6 @@ export default function Navbar() {
             className={`navbar-link ${isActive("/") ? "active" : ""}`}
             onClick={closeMenu}
           >
-            <span className="nav-icon">🏠</span>
             Home
           </Link>
           <Link
@@ -39,7 +37,6 @@ export default function Navbar() {
             className={`navbar-link ${isActive("/feedback") ? "active" : ""}`}
             onClick={closeMenu}
           >
-            <span className="nav-icon">📝</span>
             Submit Feedback
           </Link>
           <Link
@@ -47,7 +44,6 @@ export default function Navbar() {
             className={`navbar-link ${isActive("/dashboard") ? "active" : ""}`}
             onClick={closeMenu}
           >
-            <span className="nav-icon">📊</span>
             Dashboard
           </Link>
         </div>
