@@ -3,8 +3,9 @@ import FeedbackList from "../components/FeedbackList";
 
 export default function Dashboard() {
   const [feedbacks, setFeedbacks] = useState([]);
+  const [error, setError] = useState("");
 
-  // Use the GET route /feedback instead of /add
+  // Fetch all feedback
   const fetchFeedback = async () => {
     try {
       const res = await fetch("https://backend-feedback-f8jc.onrender.com/feedback");
@@ -13,9 +14,11 @@ export default function Dashboard() {
       setFeedbacks(data);
     } catch (err) {
       console.error(err);
+      setError("Could not load feedback. Please try again later.");
     }
   };
 
+  // Delete feedback
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this feedback?"
@@ -42,10 +45,15 @@ export default function Dashboard() {
   return (
     <div>
       <h1>Student Feedback Dashboard</h1>
-      <FeedbackList feedbacks={feedbacks} onDelete={handleDelete} />
+      {error && <p className="error">{error}</p>}
+      {feedbacks.length === 0 && !error && <p>No feedback available.</p>}
+      {feedbacks.length > 0 && (
+        <FeedbackList feedbacks={feedbacks} onDelete={handleDelete} />
+      )}
     </div>
   );
 }
+
 
 
 
