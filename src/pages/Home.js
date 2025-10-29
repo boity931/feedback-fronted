@@ -9,7 +9,7 @@ const Home = () => {
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-content">
-          <div className="hero-badge">🎓 Student Feedback Portal</div>
+          <div className="hero-badge"> Student Feedback Portal</div>
           <h1 className="hero-title">
             Welcome to Limkokwing University<br />
             Student Feedback App
