@@ -20,16 +20,22 @@ export default function FeedbackForm({ onAdd }) {
       return;
     }
     setError("");
+
     try {
-      const res = await fetch("https://backend-feedback-f8jc.onrender.com/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        "https://backend-feedback-f8jc.onrender.com/feedback",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
+
       if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.error || "Failed to submit feedback");
       }
+
       const data = await res.json();
       if (onAdd) onAdd({ ...form, id: data.id });
       setForm({ studentName: "", courseCode: "", comments: "", rating: 1 });

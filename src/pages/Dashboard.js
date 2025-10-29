@@ -7,7 +7,7 @@ export default function Dashboard() {
 
   const fetchFeedback = async () => {
     try {
-      const res = await fetch("https://backend-feedback-f8jc.onrender.com/api/feedback");
+      const res = await fetch("https://backend-feedback-f8jc.onrender.com/feedback");
       if (!res.ok) throw new Error("Failed to fetch feedback");
       const data = await res.json();
       setFeedbacks(data);
@@ -18,15 +18,14 @@ export default function Dashboard() {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this feedback?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this feedback?");
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`https://backend-feedback-f8jc.onrender.com/api/feedback/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://backend-feedback-f8jc.onrender.com/feedback/${id}`,
+        { method: "DELETE" }
+      );
       if (!res.ok) throw new Error("Delete failed");
       setFeedbacks(feedbacks.filter((fb) => fb.id !== id));
       alert("Feedback deleted successfully!");
