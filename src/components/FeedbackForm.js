@@ -25,7 +25,7 @@ export default function FeedbackForm({ onAdd }) {
 
     try {
       const res = await fetch(
-        "https://backend-feedback-f8jc.onrender.com/api/feedback",
+        "https://backend-feedback-f8jc.onrender.com/feedback", // <--- Correct URL
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -80,6 +80,7 @@ export default function FeedbackForm({ onAdd }) {
     </form>
   );
 }
+
 
 
 
