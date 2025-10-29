@@ -16,16 +16,17 @@ export default function FeedbackForm({ onAdd }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate all fields
     if (!form.studentName || !form.courseCode || !form.comments) {
       setError("All fields are required");
       return;
     }
-
     setError("");
 
     try {
+      // ✅ Correct endpoint for POST
       const res = await fetch(
-        "https://backend-feedback-f8jc.onrender.com/feedback", // <--- Correct URL
+        "https://backend-feedback-f8jc.onrender.com/add",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -41,6 +42,7 @@ export default function FeedbackForm({ onAdd }) {
       const data = await res.json();
       if (onAdd) onAdd({ ...form, id: data.id });
 
+      // Reset form after successful submission
       setForm({ studentName: "", courseCode: "", comments: "", rating: 1 });
     } catch (err) {
       console.error(err);
@@ -80,6 +82,7 @@ export default function FeedbackForm({ onAdd }) {
     </form>
   );
 }
+
 
 
 
